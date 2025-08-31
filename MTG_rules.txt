@@ -1,14 +1,14 @@
-Magic: The Gathering Comprehensive Rules
+# Magic: The Gathering Comprehensive Rules
 
-These rules are effective as of July 25, 2025.
+# These rules are effective as of July 25, 2025.
 
-Introduction
+# Introduction
 
 This document is the ultimate authority for Magic: The Gathering® competitive game play. It consists of a series of numbered rules followed by a glossary. Many of the numbered rules are divided into subrules, and each separate rule and subrule of the game has its own number. (Note that subrules skip the letters “l” and “o” due to potential confusion with the numbers “1” and “0”; subrule 704.5k is followed by 704.5m, then 704.5n, then 704.5p, for example.)
 
 Changes may have been made to this document since its publication. You can download the most recent version from the Magic rules website at Magic.Wizards.com/Rules.
 
-Contents
+# Contents
 
 1. Game Concepts
 100. General
@@ -178,7 +178,7 @@ Glossary
 
 Credits
 
-1. Game Concepts
+# 1. Game Concepts
 
 100. General
 
@@ -1266,7 +1266,7 @@ Example: A creature with a name sticker on it becomes enchanted by Witness Prote
 
 123.9. An art sticker on a permanent has no effect on game play other than to act as a marker that other spells and abilities can identify.
 
-2. Parts of a Card
+# 2. Parts of a Card
 
 200. General
 
@@ -1559,7 +1559,7 @@ Example: Veteran Motorist has the ability “Whenever this creature crews a Vehi
 
 213.1g Legal text (the fine print at the bottom or bottom-right of the card) lists the trademark and copyright information.
 
-3. Card Types
+# 3. Card Types
 
 300. General
 
@@ -1921,7 +1921,7 @@ Example: “Basic Land — Mountain” means the card is a land with the subtype
 
 315.7. At any time, you may look at a face-down conspiracy card you control. You can’t look at face-down conspiracy cards controlled by other players.
 
-4. Zones
+# 4. Zones
 
 400. General
 
@@ -2099,7 +2099,7 @@ Example: Exquisite Archangel has an ability which reads “If you would lose the
 408.3. In the Planechase, Vanguard, Commander, Archenemy, and Conspiracy Draft casual variants, nontraditional Magic cards and/or specially designated cards start the game in the command zone. Each variant has its own rules regarding such cards. See section 9, “Casual Variants.”
 
 
-5. Turn Structure
+# 5. Turn Structure
 
 500. General
 
@@ -2429,7 +2429,7 @@ Example: An attacking Elvish Regrower (a 4/3 creature) is blocked by Vampire Spa
 514.3a At this point, the game checks to see if any state-based actions would be performed and/or any triggered abilities are waiting to be put onto the stack (including those that trigger “at the beginning of the next cleanup step”). If so, those state-based actions are performed, then those triggered abilities are put on the stack, then the active player gets priority. Players may cast spells and activate abilities. Once the stack is empty and all players pass in succession, another cleanup step begins.
 
 
-6. Spells, Abilities, and Effects
+# 6. Spells, Abilities, and Effects
 
 600. General
 
@@ -3174,7 +3174,7 @@ Example: A player is instructed to create a token that’s a copy of Voice of Al
 Example: One effect reads “If you would gain life, draw that many cards instead,” and another reads “If you would draw a card, return a card from your graveyard to your hand instead.” Both effects combine (regardless of the order they came into existence): Instead of gaining 1 life, the player puts a card from their graveyard into their hand.
 
 
-7. Additional Rules
+# 7. Additional Rules
 
 700. General
 
@@ -6240,7 +6240,7 @@ Example: A player controls Seal of Cleansing, an enchantment that reads, “Sacr
 
 732.2. When reversing illegal spells and abilities, the player who had priority retains it and may take another action or pass. The player may redo the reversed action in a legal way or take any other action allowed by the rules.
 
-8. Multiplayer Rules
+# 8. Multiplayer Rules
 
 800. General
 
@@ -6644,7 +6644,7 @@ Example: In an Alternating Teams game with three teams, A, B, and C, the seating
 811.5. In the Alternating Teams variant, a team’s resources (cards in hand, mana, and so on) are not shared. Teammates can’t review each other’s hands unless they are sitting next to each other. Teammates may discuss strategies at any time. Teammates can’t manipulate each other’s cards or permanents.
 
 
-9. Casual Variants
+# 9. Casual Variants
 
 900. General
 
@@ -6928,7 +6928,7 @@ Example: Wort, the Raidmother’s color identity is red and green. A Wort Comman
 
 905.6. Once the starting player has been determined, each player sets their life total to 20 and draws a hand of seven cards.
 
-Glossary
+# Glossary
 
 Abandon
 To turn a face-up ongoing scheme card face down and put it on the bottom of its owner’s scheme deck. See rule 701.33, “Abandon.”
@@ -9115,7 +9115,7 @@ Zone-Change Triggers
 Trigger events that involve objects changing zones. See rule 603.6.
 
 
-Credits
+# Credits
 
 Magic: The Gathering Original Game Design: Richard Garfield
 Comprehensive Rules Design and Development: Paul Barclay, Mark L. Gottlieb, Beth Moursund, Bill Rose, Eli Shiffrin, and Matt Tabak, with contributions from Charlie Cactino, John Carter, Elaine Chase, Laurie Cheers, Stephen D’Angelo, Dave DeLaney, Brady Dommermuth, Mike Donais, Skaff Elias, Mike Elliott, Richard Garfield, Dan Gray, Robert Gutschera, Collin Jackson, William Jockusch, Jeff Jordan, Yonemura Kaoru, Russell Linnemann, Jim Lin, Steve Lord, Sheldon Menery, Michael Phoenix, Mark Rosewater, David Sachs, Lee Sharpe, Henry Stern, Donald X. Vaccarino, Thijs van Ommen, Ingo Warnke, Tom Wylie, and Bryan Zembruski
