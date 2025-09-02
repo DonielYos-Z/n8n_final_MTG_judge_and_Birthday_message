@@ -1,0 +1,519 @@
+{
+  "name": "n8n_final_Birthday_Greeting",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Happy Brithday message writer",
+        "formDescription": "Generate a birthday greeting",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Recipient Name",
+              "placeholder": "Name of who you're sending the message to",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Sender Name",
+              "placeholder": "Your name",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Recipient Gender",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Male"
+                  },
+                  {
+                    "option": "Female"
+                  },
+                  {
+                    "option": "Other"
+                  }
+                ]
+              },
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Details",
+              "fieldType": "textarea",
+              "placeholder": "What does this person like? "
+            },
+            {
+              "fieldLabel": "Email",
+              "fieldType": "email",
+              "placeholder": "Recipient's Email address"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        -400,
+        -16
+      ],
+      "id": "750cc768-5dfe-4db9-9e18-2f14b7353f97",
+      "name": "On form submission",
+      "webhookId": "95098ed2-0dd5-4230-b46f-9a945e3e9bba"
+    },
+    {
+      "parameters": {
+        "subject": "Newly Generated Birthday Message",
+        "textContent": "=Message Details:\nSent by: {{ $json.fields['Creator Name'] }}\nSent to: {{ $json.fields['Recipient Name'] }}\nMessage:\n{{ $json.fields['Generated Text'] }}\nImage:\n{{ $json.fields['Image URL'] }}",
+        "sender": "=donyoszaner@gmail.com",
+        "receipients": "={{ $json.fields['Recipient Email'] }}",
+        "additionalFields": {},
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.sendInBlue",
+      "typeVersion": 1,
+      "position": [
+        1344,
+        -16
+      ],
+      "id": "d0464b17-79ee-46ef-bf3b-c29e5f7ccda2",
+      "name": "Send a transactional email",
+      "credentials": {
+        "sendInBlueApi": {
+          "id": "5q5dxIGgvywBV06r",
+          "name": "Brevo account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "combineBySql",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        224,
+        -16
+      ],
+      "id": "edd3e2b6-d8dc-4336-87c4-fa88b8d60eee",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json['Recipient Name'] }}, {{ $json['Sender Name'] }}, {{ $json['Recipient Gender'] }}, {{ $json.Details }}, {{ $json.Email }}",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "=You are an AI agent. You receive the recipietnt's name, the sender's name, the recipiant's gender, the details of the message, and the email to send the message to. You are to create a \"Happy Birthday\" message around those details for the recipient. The message shuld be relatively short, no more than 5 lines."
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        -176,
+        108
+      ],
+      "id": "61876327-7ecc-4218-90b2-3e938cb6cb8f",
+      "name": "Basic LLM Chain"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -80,
+        332
+      ],
+      "id": "a9a56e0d-bb70-431b-93c1-9fcd56709289",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "900MWpSEPG16Qnxn",
+          "name": "API_key_a"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "completion",
+        "completionTitle": "Success",
+        "completionMessage": "=Your song was successfuly created and sent to  {{ $('On form submission').item.json['Recipient Name'] }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.form",
+      "typeVersion": 1,
+      "position": [
+        1568,
+        -16
+      ],
+      "id": "ea889982-93ad-4531-b85d-a0e2bdc3330b",
+      "name": "Form",
+      "webhookId": "1e6b5ef5-0eeb-433b-be2b-85aca97c6edf"
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "value": "appAcY9ucCRzWbnId",
+          "mode": "list",
+          "cachedResultName": "n8n_final_1",
+          "cachedResultUrl": "https://airtable.com/appAcY9ucCRzWbnId"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblYwdifBiINakJDv",
+          "mode": "list",
+          "cachedResultName": "Birthday_Greetings",
+          "cachedResultUrl": "https://airtable.com/appAcY9ucCRzWbnId/tblYwdifBiINakJDv"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Recipient Name": "={{ $('Merge').item.json['Recipient Name'] }}",
+            "Creator Name": "={{ $('Merge').item.json['Sender Name'] }}",
+            "Recipient Gender": "={{ $('Merge').item.json['Recipient Gender'] }}",
+            "Favorite Topics Description": "={{ $('Merge').item.json.Details }}",
+            "Generated Text": "={{ $('Merge').item.json.text }}",
+            "Recipient Email": "={{ $('Merge').item.json.Email }}",
+            "Image URL": "={{ $json.content.download_url }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Recipient Name",
+              "displayName": "Recipient Name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Creator Name",
+              "displayName": "Creator Name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Recipient Gender",
+              "displayName": "Recipient Gender",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Male",
+                  "value": "Male"
+                },
+                {
+                  "name": "Female",
+                  "value": "Female"
+                },
+                {
+                  "name": "Other",
+                  "value": "Other"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Favorite Topics Description",
+              "displayName": "Favorite Topics Description",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Generated Text",
+              "displayName": "Generated Text",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Recipient Email",
+              "displayName": "Recipient Email",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Image URL",
+              "displayName": "Image URL",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        1120,
+        -16
+      ],
+      "id": "cef79329-2732-4513-a377-13d5243cdf58",
+      "name": "Create a record",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "Z6vwHm2ZmhCOxev0",
+          "name": "n8n_a"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "image",
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.0-flash-exp-image-generation",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.0-flash-exp-image-generation"
+        },
+        "prompt": "=Generate an image featuring details from these subjects:\n={{ $json.Details }}\nInsert the words \"Happy Birthday\" together somewhere in the image, so that it looks like it's part of the scenery.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1,
+      "position": [
+        448,
+        -16
+      ],
+      "id": "ab402457-2298-4b20-8e94-c92f9ae6471f",
+      "name": "Generate an image",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "900MWpSEPG16Qnxn",
+          "name": "API_key_a"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "owner": {
+          "__rl": true,
+          "value": "https://github.com/DonielYos-Z/n8n_final_MTG_judge_and_Birthday_message",
+          "mode": "url"
+        },
+        "repository": {
+          "__rl": true,
+          "value": "n8n_final_MTG_judge_and_Birthday_message",
+          "mode": "list",
+          "cachedResultName": "n8n_final_MTG_judge_and_Birthday_message",
+          "cachedResultUrl": "https://github.com/DonielYos-Z/n8n_final_MTG_judge_and_Birthday_message"
+        },
+        "filePath": "={{Date.now()}}.png",
+        "fileContent": "={{ $json.data }}",
+        "commitMessage": "aaa"
+      },
+      "type": "n8n-nodes-base.github",
+      "typeVersion": 1.1,
+      "position": [
+        896,
+        -16
+      ],
+      "id": "46617f6e-6559-42c0-b597-e0716587afd3",
+      "name": "DonielYos-Z",
+      "webhookId": "09b9d09c-12b4-43e1-9fa7-e33e7c04fce6",
+      "credentials": {
+        "githubApi": {
+          "id": "YvnDYCQrIOB7dJ1X",
+          "name": "GitHub account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "For Github to upload a file, the data must be converted to BASE64"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        608,
+        -96
+      ],
+      "typeVersion": 1,
+      "id": "55d996db-426c-497a-a7cb-52255fbfbbd3",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "operation": "binaryToPropery",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        672,
+        -16
+      ],
+      "id": "174a499c-b9f2-456f-88db-c6adde0a0971",
+      "name": "Extract from File"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Generate an image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Send a transactional email": {
+      "main": [
+        [
+          {
+            "node": "Form",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a record": {
+      "main": [
+        [
+          {
+            "node": "Send a transactional email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate an image": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "DonielYos-Z",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "DonielYos-Z": {
+      "main": [
+        [
+          {
+            "node": "Create a record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "f6571b79-b1b5-4aad-9bde-03310884c72d",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "145e86ac09e30091d56550a5eb19eb897f53313cde0470a2ac991b0de198b888"
+  },
+  "id": "BnhDmvmnHGSy3TTx",
+  "tags": []
+}
