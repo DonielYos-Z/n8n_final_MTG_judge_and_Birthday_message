@@ -1,1 +1,1 @@
-# n8n_final_MTG_judge
+# n8n_final_MTG_judge_and_Birthday_message
